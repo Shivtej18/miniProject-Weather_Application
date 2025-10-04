@@ -17,13 +17,14 @@ export default function SearchBox({ updateInfo }) {
     const limit = 1;
     const CITY_API_URL = "https://api.openweathermap.org/geo/1.0/direct";
     const WEATHER_API_URL = "https://api.openweathermap.org/data/2.5/weather";
-    const API_key = "85f24a6a6ae995e4e208ecddb4292123";
+    const API_key = import.meta.env.VITE_API_KEY;
     const kelvinToCelsius = (k) => typeof k === "number" ? Number((k - 273.15).toFixed(2)) : null;
 
     let getCityInfo = async () => {
         const response = await fetch(`${CITY_API_URL}?q=${city}&limit=${limit}&appid=${API_key}`);
         const data = await response.json();
         const location = data[0];
+        console.log("Loaded API Key:", API_key);
         if (!location) {
             console.error("City not found");
             return;
